@@ -1,1 +1,35 @@
-*{box-sizing:border-box;user-select:none;-webkit-user-select:none}html,body{margin:0;width:100%;height:100%;overflow:hidden;font-family:Arial,sans-serif;background:#55bfea}button{touch-action:none;-webkit-tap-highlight-color:transparent}#game{width:100vw;height:100vh;position:relative;overflow:hidden}#world{position:absolute;width:3000px;height:2000px;background:radial-gradient(circle,#ffffff55 0 7px,transparent 8px);background-size:180px 180px;will-change:transform}#island{position:absolute;left:400px;top:300px;width:2200px;height:1300px;border-radius:180px;background:#59bd4f;border:35px solid #d5b35c;box-shadow:inset 0 0 100px #247b35}#player{position:absolute;width:45px;height:60px;background:#2563eb;border-radius:12px;z-index:20}#player span{position:absolute;width:34px;height:34px;left:5px;top:-28px;border-radius:50%;background:#ffd2a3;border:3px solid #222}.enemy{position:absolute;width:48px;height:60px;background:#d93636;border-radius:10px;z-index:10;text-align:center}.enemy b{position:absolute;width:80px;left:-16px;top:-40px;color:white;font-size:12px;text-shadow:2px 2px #000}.hp{position:absolute;width:70px;height:7px;left:-11px;top:-23px;background:#222;border-radius:5px;overflow:hidden}.hp i{display:block;width:100%;height:100%;background:#20d44b}#enemy1{left:700px;top:700px}#enemy2{left:1050px;top:850px}#fruit,#npc{position:absolute;cursor:pointer;z-index:15}#fruit{left:1400px;top:700px;font-size:48px;filter:drop-shadow(0 0 12px orange)}#npc{left:1700px;top:700px;font-size:55px}#hud,#quest{position:fixed;top:15px;z-index:100;padding:12px 16px;color:white;background:#000a;border-radius:14px;line-height:1.6}#hud{left:15px}#quest{right:15px}#pc-hint{position:fixed;left:50%;top:15px;transform:translateX(-50%);z-index:100;color:white;background:#0008;padding:9px 14px;border-radius:12px;font-size:13px}#actions{position:fixed;right:25px;bottom:25px;display:flex;gap:15px;z-index:100}#actions button{width:75px;height:75px;border:0;border-radius:50%;color:white;font-size:25px;font-weight:bold}#attack{background:#e58b15}#skill{background:#7b35e8}#mobile-controls{display:none;position:fixed;left:20px;bottom:25px;width:150px;height:150px;z-index:100}#mobile-controls button{position:absolute;width:50px;height:50px;border:0;border-radius:12px;background:#0009;color:white;font-size:20px}.up{left:50px;top:0}.left{left:0;top:50px}.down{left:50px;top:100px}.right{right:0;top:50px}#message{position:fixed;left:50%;bottom:130px;transform:translateX(-50%);padding:12px 20px;color:white;background:#000c;border-radius:12px;opacity:0;z-index:200;transition:opacity .2s;pointer-events:none}#message.show{opacity:1}button:active{transform:scale(.9)}@media(max-width:800px),(pointer:coarse){#pc-hint{display:none}#mobile-controls{display:block}#actions{right:18px;bottom:25px}#actions button{width:68px;height:68px}#hud,#quest{top:8px;padding:8px 10px;font-size:12px}#quest{right:8px}#hud{left:8px}}
+*{box-sizing:border-box}
+html,body,#game{margin:0;width:100%;height:100%;overflow:hidden}
+body{font-family:Arial,sans-serif;background:#5fc7ed;touch-action:none}
+#game{position:fixed;inset:0}
+canvas{display:block}
+
+#hud,#quest{
+ position:fixed;top:14px;z-index:20;color:#fff;background:#0009;
+ padding:12px 15px;border-radius:14px;line-height:1.55;
+ text-shadow:1px 1px 2px #000
+}
+#hud{left:14px}.title{font-weight:800;margin-bottom:4px}
+#quest{right:14px}
+
+#help{position:fixed;top:14px;left:50%;transform:translateX(-50%);
+ z-index:20;color:#fff;background:#0008;padding:8px 13px;border-radius:12px;font-size:13px}
+#message{position:fixed;left:50%;bottom:24%;transform:translateX(-50%);
+ z-index:30;color:#fff;background:#000c;padding:12px 20px;border-radius:12px;
+ opacity:0;transition:.2s;pointer-events:none}
+#message.show{opacity:1}
+
+#mobile{display:none;position:fixed;inset:0;z-index:25;pointer-events:none}
+#stick{position:absolute;left:18px;bottom:20px;width:155px;height:155px;pointer-events:auto}
+#stick button,#mobileActions button{position:absolute;border:0;color:#fff;background:#0008;
+ width:52px;height:52px;border-radius:14px;font-size:20px;touch-action:none}
+#stick .up{left:51px;top:0}.left{left:0;top:51px}.down{left:51px;top:102px}.right{right:0;top:51px}
+#mobileActions{position:absolute;right:18px;bottom:25px;width:180px;height:100px;pointer-events:auto}
+#mobileActions button{position:relative;margin-left:8px;width:58px;height:58px;border-radius:50%}
+#mAttack{background:#d77d16!important}.mSkill{background:#7434d8}
+
+@media(max-width:800px),(pointer:coarse){
+ #mobile{display:block}#help{display:none}
+ #hud,#quest{top:8px;padding:8px 10px;font-size:12px}
+ #hud{left:8px}#quest{right:8px}
+}

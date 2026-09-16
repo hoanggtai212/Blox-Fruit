@@ -1,1 +1,48 @@
-<!DOCTYPE html><html lang="vi"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Sea Adventure</title><link rel="stylesheet" href="style.css"></head><body><main id="game"><div id="world"><div id="island"><div id="player"><span></span></div><div class="enemy" id="enemy1"><b>Bandit</b><div class="hp"><i></i></div></div><div class="enemy" id="enemy2"><b>Bandit</b><div class="hp"><i></i></div></div><div id="fruit">🍎</div><div id="npc">🧑‍💼</div></div></div><section id="hud"><strong>⚔️ SEA ADVENTURE</strong><div>⭐ Level: <span id="level">1</span></div><div>✨ EXP: <span id="exp">0</span>/100</div><div>💰 Beli: <span id="beli">100</span></div><div>🔥 Power: <span id="power">None</span></div></section><section id="quest">🎯 <strong>Quest</strong><div>Defeat Bandits</div><div><span id="kills">0</span>/5</div></section><div id="pc-hint">💻 WASD / ↑ ↓ ← → • Space / Click đánh</div><section id="actions"><button id="attack">⚔️</button><button id="skill">🔥</button></section><section id="mobile-controls"><button data-key="w" class="up">▲</button><button data-key="a" class="left">◀</button><button data-key="s" class="down">▼</button><button data-key="d" class="right">▶</button></section><div id="message"></div></main><script src="game.js"></script><script src="mobile.js"></script></body></html>
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+  <title>Sea Adventure 3D</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="game"></div>
+
+  <div id="hud">
+    <div class="title">⚔️ SEA ADVENTURE</div>
+    <div>⭐ Level: <b id="level">1</b></div>
+    <div>✨ EXP: <b id="exp">0</b>/100</div>
+    <div>💰 Beli: <b id="beli">100</b></div>
+    <div>🍎 Power: <b id="power">None</b></div>
+  </div>
+
+  <div id="quest">
+    <b>🎯 Quest</b>
+    <div id="questText">Đánh bại 3 Bandits</div>
+    <div><b id="kills">0</b>/3</div>
+  </div>
+
+  <div id="help">💻 WASD di chuyển · Chuột xoay camera · Space nhảy · Click đánh</div>
+
+  <div id="message"></div>
+
+  <div id="mobile">
+    <div id="stick">
+      <button data-key="w" class="up">▲</button>
+      <button data-key="a" class="left">◀</button>
+      <button data-key="s" class="down">▼</button>
+      <button data-key="d" class="right">▶</button>
+    </div>
+    <div id="mobileActions">
+      <button id="mJump">⬆</button>
+      <button id="mAttack">⚔️</button>
+      <button id="mSkill">🔥</button>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/three@0.161.0/build/three.min.js"></script>
+  <script src="game.js"></script>
+  <script src="mobile.js"></script>
+</body>
+</html>
