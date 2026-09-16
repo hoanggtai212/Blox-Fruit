@@ -1,0 +1,2 @@
+// Điều khiển riêng cho điện thoại
+const buttons=document.querySelectorAll("#mobile-controls button");buttons.forEach(b=>{const k=b.dataset.key;const start=e=>{e.preventDefault();keys[k]=true},stop=e=>{e.preventDefault();keys[k]=false};b.addEventListener("touchstart",start,{passive:false});b.addEventListener("touchend",stop,{passive:false});b.addEventListener("touchcancel",stop,{passive:false});b.addEventListener("mousedown",start);b.addEventListener("mouseup",stop);b.addEventListener("mouseleave",stop)});
