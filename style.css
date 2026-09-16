@@ -1,35 +1,578 @@
-*{box-sizing:border-box}
-html,body,#game{margin:0;width:100%;height:100%;overflow:hidden}
-body{font-family:Arial,sans-serif;background:#5fc7ed;touch-action:none}
-#game{position:fixed;inset:0}
-canvas{display:block}
-
-#hud,#quest{
- position:fixed;top:14px;z-index:20;color:#fff;background:#0009;
- padding:12px 15px;border-radius:14px;line-height:1.55;
- text-shadow:1px 1px 2px #000
+* {
+  box-sizing: border-box;
+  user-select: none;
+  -webkit-user-select: none;
 }
-#hud{left:14px}.title{font-weight:800;margin-bottom:4px}
-#quest{right:14px}
 
-#help{position:fixed;top:14px;left:50%;transform:translateX(-50%);
- z-index:20;color:#fff;background:#0008;padding:8px 13px;border-radius:12px;font-size:13px}
-#message{position:fixed;left:50%;bottom:24%;transform:translateX(-50%);
- z-index:30;color:#fff;background:#000c;padding:12px 20px;border-radius:12px;
- opacity:0;transition:.2s;pointer-events:none}
-#message.show{opacity:1}
+html,
+body,
+#game {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+}
 
-#mobile{display:none;position:fixed;inset:0;z-index:25;pointer-events:none}
-#stick{position:absolute;left:18px;bottom:20px;width:155px;height:155px;pointer-events:auto}
-#stick button,#mobileActions button{position:absolute;border:0;color:#fff;background:#0008;
- width:52px;height:52px;border-radius:14px;font-size:20px;touch-action:none}
-#stick .up{left:51px;top:0}.left{left:0;top:51px}.down{left:51px;top:102px}.right{right:0;top:51px}
-#mobileActions{position:absolute;right:18px;bottom:25px;width:180px;height:100px;pointer-events:auto}
-#mobileActions button{position:relative;margin-left:8px;width:58px;height:58px;border-radius:50%}
-#mAttack{background:#d77d16!important}.mSkill{background:#7434d8}
+body {
+  font-family: Arial, sans-serif;
+  background: #65c9ee;
+  touch-action: none;
+}
 
-@media(max-width:800px),(pointer:coarse){
- #mobile{display:block}#help{display:none}
- #hud,#quest{top:8px;padding:8px 10px;font-size:12px}
- #hud{left:8px}#quest{right:8px}
+canvas {
+  display: block;
+}
+
+
+/* =========================
+   HUD
+========================= */
+
+#hud {
+  position: fixed;
+  top: 15px;
+  left: 15px;
+  z-index: 20;
+
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  color: white;
+}
+
+
+.player-card {
+  min-width: 260px;
+
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  padding: 9px 12px;
+
+  border: 2px solid #f2c34d;
+  border-radius: 15px;
+
+  background: rgba(35, 30, 15, .88);
+
+  box-shadow:
+    0 4px 15px #0007;
+}
+
+
+.avatar {
+  width: 50px;
+  height: 50px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 30px;
+
+  border-radius: 12px;
+
+  background:
+    linear-gradient(#63c64d, #286c32);
+}
+
+
+.player-info {
+  width: 150px;
+}
+
+
+.player-info b {
+  font-size: 13px;
+}
+
+
+.bar,
+.expbar {
+  width: 100%;
+  height: 8px;
+
+  margin-top: 4px;
+
+  overflow: hidden;
+
+  border-radius: 8px;
+
+  background: #222;
+}
+
+
+#hpBar {
+  width: 100%;
+  height: 100%;
+  background: #e84242;
+}
+
+
+#expBar {
+  width: 0%;
+  height: 100%;
+  background: #24a6ed;
+}
+
+
+.player-info small {
+  font-size: 10px;
+}
+
+
+.level {
+  padding-left: 7px;
+
+  color: #ffd84a;
+
+  text-align: center;
+}
+
+
+.level b {
+  font-size: 25px;
+}
+
+
+.money,
+.power {
+  padding: 10px 14px;
+
+  border-radius: 13px;
+
+  background: rgba(20, 20, 20, .78);
+
+  font-size: 14px;
+}
+
+
+.money {
+  color: #ffd34e;
+}
+
+
+.power {
+  color: #9cff76;
+}
+
+
+/* =========================
+   QUEST
+========================= */
+
+#quest {
+  position: fixed;
+
+  right: 18px;
+  top: 18px;
+
+  width: 225px;
+
+  z-index: 20;
+
+  padding: 13px;
+
+  color: white;
+
+  border: 2px solid #d79d27;
+  border-radius: 14px;
+
+  background: rgba(35, 28, 15, .88);
+
+  box-shadow: 0 4px 15px #0006;
+}
+
+
+.quest-title {
+  color: #ffd84b;
+
+  font-size: 12px;
+
+  margin-bottom: 8px;
+}
+
+
+.quest-progress {
+  margin-top: 7px;
+
+  color: #7de9ff;
+
+  font-size: 19px;
+}
+
+
+#trackBtn {
+  margin-top: 8px;
+
+  width: 100%;
+
+  padding: 7px;
+
+  border: 0;
+  border-radius: 8px;
+
+  color: white;
+
+  background: #3aaa4b;
+
+  font-weight: bold;
+}
+
+
+/* =========================
+   TOP BUTTONS
+========================= */
+
+#top {
+  position: fixed;
+
+  right: 260px;
+  top: 20px;
+
+  z-index: 20;
+
+  display: flex;
+  gap: 8px;
+}
+
+
+#top button {
+  width: 42px;
+  height: 42px;
+
+  border: 2px solid #e5ad37;
+  border-radius: 12px;
+
+  background: #784d15dd;
+
+  color: white;
+
+  font-size: 20px;
+}
+
+
+/* =========================
+   MESSAGE
+========================= */
+
+#message {
+  position: fixed;
+
+  left: 50%;
+  bottom: 25%;
+
+  transform: translateX(-50%);
+
+  z-index: 50;
+
+  padding: 12px 20px;
+
+  color: white;
+
+  border-radius: 12px;
+
+  background: #111d;
+
+  opacity: 0;
+
+  pointer-events: none;
+
+  transition: .2s;
+
+  font-weight: bold;
+}
+
+
+#message.show {
+  opacity: 1;
+}
+
+
+/* =========================
+   HUB
+========================= */
+
+#hub {
+  position: fixed;
+
+  right: 18px;
+  bottom: 115px;
+
+  z-index: 40;
+}
+
+
+#hubBtn {
+  width: 55px;
+  height: 55px;
+
+  border: 2px solid #ddd;
+
+  border-radius: 50%;
+
+  background: #151515dd;
+
+  color: white;
+
+  font-size: 24px;
+}
+
+
+#hubPanel {
+  display: none;
+
+  position: absolute;
+
+  right: 0;
+  bottom: 65px;
+
+  width: 190px;
+
+  padding: 12px;
+
+  border-radius: 15px;
+
+  background: #171717ee;
+
+  box-shadow: 0 5px 20px #0008;
+}
+
+
+#hubPanel.open {
+  display: block;
+}
+
+
+#hubPanel h3 {
+  color: white;
+  margin: 0 0 8px;
+}
+
+
+#hubPanel button {
+  width: 100%;
+
+  padding: 10px;
+
+  margin: 5px 0;
+
+  border: 0;
+  border-radius: 9px;
+
+  color: white;
+
+  background: #ffffff18;
+
+  text-align: left;
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+#mobile {
+  display: none;
+
+  position: fixed;
+
+  inset: 0;
+
+  z-index: 30;
+
+  pointer-events: none;
+}
+
+
+/* JOYSTICK */
+
+#joystick {
+  position: absolute;
+
+  left: 22px;
+  bottom: 25px;
+
+  width: 160px;
+  height: 160px;
+
+  pointer-events: auto;
+}
+
+
+.joy {
+  position: absolute;
+
+  width: 55px;
+  height: 55px;
+
+  border: 2px solid #fff9;
+
+  border-radius: 50%;
+
+  color: white;
+
+  background: #2228;
+
+  font-size: 20px;
+
+  touch-action: none;
+}
+
+
+.joy.up {
+  left: 52px;
+  top: 0;
+}
+
+
+.joy.left {
+  left: 0;
+  top: 52px;
+}
+
+
+.joy.down {
+  left: 52px;
+  bottom: 0;
+}
+
+
+.joy.right {
+  right: 0;
+  top: 52px;
+}
+
+
+.joy-center {
+  position: absolute;
+
+  left: 52px;
+  top: 52px;
+
+  width: 55px;
+  height: 55px;
+
+  border-radius: 50%;
+
+  background: #ffffff28;
+
+  pointer-events: none;
+}
+
+
+/* ACTION BUTTONS */
+
+#actions {
+  position: absolute;
+
+  right: 22px;
+  bottom: 25px;
+
+  display: flex;
+  align-items: end;
+  gap: 10px;
+
+  pointer-events: auto;
+}
+
+
+#actions button {
+  width: 65px;
+  height: 65px;
+
+  border: 3px solid #fff;
+
+  border-radius: 50%;
+
+  color: white;
+
+  font-size: 25px;
+
+  background: #111b;
+
+  touch-action: none;
+}
+
+
+#attackBtn {
+  width: 78px !important;
+  height: 78px !important;
+
+  background: #c66a18 !important;
+}
+
+
+#skillBtn {
+  background: #7738a9 !important;
+}
+
+
+/* =========================
+   MOBILE RESPONSIVE
+========================= */
+
+@media (max-width: 800px),
+(pointer: coarse) {
+
+  #mobile {
+    display: block;
+  }
+
+  #top {
+    right: 10px;
+    top: 10px;
+  }
+
+  #top button {
+    width: 35px;
+    height: 35px;
+    font-size: 16px;
+  }
+
+  #quest {
+    top: 65px;
+    right: 10px;
+    width: 170px;
+    padding: 9px;
+    font-size: 11px;
+  }
+
+  #hud {
+    left: 8px;
+    top: 8px;
+
+    display: block;
+  }
+
+  .player-card {
+    min-width: 210px;
+    padding: 6px;
+  }
+
+  .avatar {
+    width: 38px;
+    height: 38px;
+    font-size: 23px;
+  }
+
+  .player-info {
+    width: 125px;
+  }
+
+  .money,
+  .power {
+    display: inline-block;
+    margin-top: 5px;
+
+    padding: 6px 9px;
+
+    font-size: 11px;
+  }
+
+  #hub {
+    right: 15px;
+    bottom: 105px;
+  }
 }
